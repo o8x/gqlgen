@@ -1,0 +1,34 @@
+type Todo {
+    id: ID!
+    text: String!
+    done: Boolean!
+}
+
+type Query {
+    todos: [Todo!]!
+}
+
+input NewTodo {
+    text: String!
+    done: Boolean!
+}
+
+type Mutation {
+    createTodo(input: NewTodo!): Todo!
+    toggleTodoDone(id: ID!): Todo!
+}
+
+enum TodoChangeAction {
+    New
+    ToggleDone
+}
+
+type TodoChangeMessage {
+    newValue: Todo
+    oldValue: Todo
+    action: TodoChangeAction!
+}
+
+type Subscription {
+    onTodoChange: TodoChangeMessage!
+}
